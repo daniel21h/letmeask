@@ -71,11 +71,14 @@ export function Room() {
   async function handleSendQuestion(e: FormEvent) {
     e.preventDefault();
 
-    if (newQuestion.trim() === '') return
+    if (newQuestion.trim() === '') {
+      toast.error('Digite uma pergunta!', { duration: 3000 });
+      return
+    }
 
     if (!user) {
       toast.error('Você precisa estar logado!', { duration: 6000 });
-      throw new Error('You must be logged in.');
+      return
     }
 
     const question = {
