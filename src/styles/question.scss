@@ -3,9 +3,28 @@
   border-radius: 8px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   padding: 24px;
+  border: 2px solid #f4f0ff;
 
   & + .question {
     margin-top: 8px;
+  }
+
+  &.highlighted {
+    background: #f4f0ff;
+    border-color: #835afd;
+
+    footer .user-info span {
+      color: #29292e;
+    }
+  }
+
+  &.answered {
+    background: #dbdcdd;
+    border-color: #dbdcdd;
+
+    p, span, img {
+      filter: opacity(0.6);
+    }
   }
 
   p {
@@ -41,6 +60,8 @@
       cursor: pointer;
 
       transition: filter 0.2s;
+
+      margin-left: 8px;
 
       &.like-button {
         display: flex;
