@@ -1,9 +1,5 @@
-import { FormEvent, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
-import { database } from "../services/firebase";
 import { useRoom } from "../hooks/useRoom";
-import toast from "react-hot-toast";
 
 import { Button } from "../components/Button";
 import { RoomCode } from "../components/RoomCode";
@@ -18,45 +14,13 @@ type RoomParams = {
 }
 
 export function AdminRoom() {
-  const { user } = useAuth();
+  // const { user } = useAuth();
 
   const params = useParams<RoomParams>();
-  const [newQuestion, setNewQuestion] = useState('');
 
   const roomId = params.id;
 
   const { title, questions } = useRoom(roomId)
-
-
-  async function handleSendQuestion(e: FormEvent) {
-    e.preventDefault();
-
-    if (newQuestion.trim() === '') {
-      toast.error('Digite uma pergunta!', { duration: 3000 });
-      return
-    }
-
-    if (!user) {
-      toast.error('Você precisa estar logado!', { duration: 6000 });
-      return
-    }
-
-    const question = {
-      content: newQuestion,
-      author: {
-        name: user.name,
-        avatar: user.avatar
-      },
-      isHighlighted: false,
-      isAnswered: false,
-    }
-
-    await database.ref(`rooms/${roomId}/questions`).push(question);
-
-    setNewQuestion('');
-
-    toast.success('Sua pergunta foi enviada!', { duration: 6000 });
-  }
 
   return (
     <div id="page-room">
