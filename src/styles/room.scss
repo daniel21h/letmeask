@@ -10,8 +10,10 @@
       justify-content: space-between;
       align-items: center;
 
-      > img {
-        max-height: 45px;
+      a {
+        > img {
+          max-height: 45px;
+        }
       }
     }
   }
@@ -99,6 +101,10 @@
           height: 48px;
         }
       }
+    }
+
+    .question-list {
+      margin-top: 32px;
     }
   }
 }

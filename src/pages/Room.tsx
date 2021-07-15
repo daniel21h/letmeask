@@ -1,11 +1,12 @@
 import { FormEvent, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { database } from "../services/firebase";
 import toast from "react-hot-toast";
 
 import { Button } from "../components/Button";
 import { RoomCode } from "../components/RoomCode";
+import { Question } from "../components/Question";
 
 import logoImg from "../assets/images/logo.svg";
 
@@ -44,7 +45,7 @@ export function Room() {
   const [questions, setQuestions] = useState<QuestionProps[]>([]);
   const [title, setTitle] = useState('');
 
-  const roomId = params.id
+  const roomId = params.id;
 
   useEffect(() => {
     const roomRef = database.ref(`rooms/${roomId}`);
@@ -102,7 +103,9 @@ export function Room() {
     <div id="page-room">
       <header>
         <div className="content">
-          <img src={logoImg} alt="Letmeask" />
+          <Link to="/">
+            <img src={logoImg} alt="Letmeask" />
+          </Link>
           <RoomCode code={roomId} />
         </div>
       </header>
@@ -133,7 +136,17 @@ export function Room() {
           </div>
         </form>
 
-        {JSON.stringify(questions)}
+        <div className="question-list">
+          {questions.map(question => {
+            return (
+              <Question
+                key={question.id}
+                content={question.content}
+                author={question.author}
+              />
+            )
+          })}
+        </div>
       </main>
     </div>
   )
