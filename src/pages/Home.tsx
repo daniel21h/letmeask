@@ -1,6 +1,7 @@
 import { FormEvent, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { database } from "../services/firebase";
+import toast from "react-hot-toast";
 
 import { Button } from "../components/Button";
 
@@ -34,7 +35,7 @@ export function Home() {
     const roomRef = await database.ref(`rooms/${roomCode}`).get();
 
     if (!roomRef.exists()) {
-      alert('Room does not exists!');
+      toast.error('Esta sala não existe!', { duration: 6000 });
 
       return
     }
