@@ -40,6 +40,12 @@ export function Home() {
       return
     }
 
+    if (roomRef.val().endedAt) {
+      toast.error('Esta sala já foi fechada!', { duration: 6000 });
+
+      return
+    }
+
     history.push(`/rooms/${roomCode}`);
   }
 
